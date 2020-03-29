@@ -139,6 +139,9 @@ static void sysrq_handle_crash(int key)
 	 * complaint from the kernel before the panic.
 	 */
 	rcu_read_unlock();
+#ifdef CONFIG_PRODUCT_REALME_SDM710
+	dump_tasks(NULL, NULL);
+#endif /*CONFIG_PRODUCT_REALME_SDM710*/
 	panic_on_oops = 1;	/* force panic */
 	wmb();
 	*killer = 1;
@@ -162,6 +165,20 @@ static struct sysrq_key_op sysrq_reboot_op = {
 	.action_msg	= "Resetting",
 	.enable_mask	= SYSRQ_ENABLE_BOOT,
 };
+
+#ifdef CONFIG_PRODUCT_REALME_SDM710
+extern int panic_flush_device_cache(int timeout);
+static void sysrq_handle_flush(int key)
+{
+	panic_flush_device_cache(0);
+}
+static struct sysrq_key_op sysrq_flush_op = {
+	.handler	= sysrq_handle_flush,
+	.help_msg	= "flush(y)",
+	.action_msg	= "Emergency Flush",
+	.enable_mask	= SYSRQ_ENABLE_SYNC,
+};
+#endif
 
 static void sysrq_handle_sync(int key)
 {
@@ -486,7 +503,11 @@ static struct sysrq_key_op *sysrq_key_table[36] = {
 	/* x: May be registered on sparc64 for global PMU dump */
 	NULL,				/* x */
 	/* y: May be registered on sparc64 for global register dump */
+#ifdef CONFIG_PRODUCT_REALME_SDM710
+	&sysrq_flush_op,                 /* y */
+#else
 	NULL,				/* y */
+#endif
 	&sysrq_ftrace_dump_op,		/* z */
 };
 
