@@ -769,7 +769,7 @@ static int qpnp_haptics_play(struct hap_chip *chip, bool enable)
 		//Added by wanghao@Bsp.group.Tp for vib min time setting,2018/5/17
 		time_ms = time_ms < chip->time_min ?
 		chip->time_min : time_ms;
-		pr_err("vib on = %d, enable is %d\n", time_ms, enable);
+		pr_debug("vib on = %d, enable is %d\n", time_ms, enable);
 		#endif/*VENDOR_EDIT*/
 		hrtimer_start(&chip->stop_timer,
 			ktime_set(time_ms / MSEC_PER_SEC,
@@ -789,7 +789,7 @@ static int qpnp_haptics_play(struct hap_chip *chip, bool enable)
 	} else {
 		#ifdef VENDOR_EDIT
 		//Added by wanghao@Bsp.group.Tp for vib min time setting,2018/5/17
-		pr_err("vib enable is %d\n", enable);
+		pr_debug("vib enable is %d\n", enable);
 		#endif/*VENDOR_EDIT*/
 		rc = qpnp_haptics_play_control(chip, HAP_STOP);
 		if (rc < 0) {
