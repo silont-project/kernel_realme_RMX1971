@@ -1,3 +1,4 @@
+ifeq ($(CONFIG_ARCH_QCOM),)
 dts-dirs += al
 dts-dirs += altera
 dts-dirs += amd
@@ -12,7 +13,6 @@ dts-dirs += hisilicon
 dts-dirs += marvell
 dts-dirs += mediatek
 dts-dirs += nvidia
-dts-dirs += qcom
 dts-dirs += renesas
 dts-dirs += rockchip
 dts-dirs += socionext
@@ -20,6 +20,9 @@ dts-dirs += sprd
 dts-dirs += xilinx
 dts-dirs += lg
 dts-dirs += zte
+else
+dts-dirs += qcom
+endif
 
 subdir-y	:= $(dts-dirs)
 
