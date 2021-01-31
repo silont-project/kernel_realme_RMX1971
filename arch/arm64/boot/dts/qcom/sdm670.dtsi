@@ -3217,3 +3217,15 @@
 		pinctrl-0 = <&nx30p6093_intr_default>;
 	};
 };
+
+/* sdm670.dtsi */
+&clock_cpucc {
+	qcom,cpufreq-table-0 =
+		<1612800>,
+		<1708800>;
+
+	qcom,cpufreq-table-6 =
+		<979200>,
+		<1843200>,
+		<2304000>;
+};
