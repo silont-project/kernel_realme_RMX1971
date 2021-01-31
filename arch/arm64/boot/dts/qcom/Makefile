@@ -1,6 +1,8 @@
+ifeq ($(CONFIG_PRODUCT_REALME),)
 dtb-$(CONFIG_ARCH_QCOM)	+= apq8016-sbc.dtb msm8916-mtp.dtb
 dtb-$(CONFIG_ARCH_QCOM)	+= msm8996-mtp.dtb
 dtb-$(CONFIG_ARCH_QCOM)	+= apq8096-db820c.dtb
+endif
 
 ifeq ($(CONFIG_BUILD_ARM64_DT_OVERLAY),y)
 	dtbo-$(CONFIG_ARCH_SDM845) += \
@@ -116,6 +118,12 @@ dtb-$(CONFIG_ARCH_SDM845) += sdm845-sim.dtb \
 endif
 
 ifeq ($(CONFIG_BUILD_ARM64_DT_OVERLAY),y)
+ifeq ($(CONFIG_PRODUCT_REALME_SDM710),y)
+	dtbo-$(CONFIG_PRODUCT_REALME_RMX1971) += \
+		sdm710-pm660a-mtp-overlay.dtbo
+
+sdm710-pm660a-mtp-overlay.dtbo-base := sdm710.dtb
+else
 	dtbo-$(CONFIG_ARCH_SDM670) += \
 		sdm670-cdp-overlay.dtbo \
 		sdm670-mtp-overlay.dtbo \
@@ -266,7 +274,12 @@ sxr1130-usbc-mtp-overlay.dtbo-base := sxr1130.dtb
 sxr1130-usbc-pm660a-mtp-overlay.dtbo-base := sxr1130.dtb
 sxr1130-qrd-overlay.dtbo-base := sxr1130.dtb
 sxr1130-svr-overlay.dtbo-base := sxr1130.dtb
+endif
 
+else
+ifeq ($(CONFIG_PRODUCT_REALME_SDM710),y)
+dtb-$(CONFIG_PRODUCT_REALME_RMX1971) += \
+	sdm710-mtp.dtb
 else
 dtb-$(CONFIG_ARCH_SDM670) += sdm670-rumi.dtb \
 	sdm670-mtp.dtb \
@@ -339,6 +352,7 @@ dtb-$(CONFIG_ARCH_SDM670) += sdm670-rumi.dtb \
 	sxr1130-usbc-pm660a-mtp.dtb \
 	sxr1130-qrd.dtb \
 	sxr1130-svr.dtb
+endif
 endif
 
 ifeq ($(CONFIG_BUILD_ARM64_DT_OVERLAY),y)
