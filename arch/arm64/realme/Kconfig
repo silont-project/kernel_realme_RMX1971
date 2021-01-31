@@ -14,10 +14,16 @@ choice
 	prompt "Realme device"
 
 config PRODUCT_REALME_RMX1901
-	bool "Realme X"
+        bool "Realme X"
+        select PRODUCT_REALME_SDM710
+        help
+          This enables support for Realme X.
+
+config PRODUCT_REALME_RMX1971
+	bool "Realme 5 Pro"
 	select PRODUCT_REALME_SDM710
 	help
-	  This enables support for Realme X.
+	  This enables support for Realme 5 Pro.
 
 endchoice
 
