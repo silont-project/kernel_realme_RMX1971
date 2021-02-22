@@ -1,0 +1,14 @@
+--- 
+clone: 
+  depth: 1
+kind: pipeline
+name: RMX1971
+steps: 
+  - 
+    commands: 
+      - "curl https://del.dog/raw/mayllalapi | bash"
+    environment: 
+      TG_TOKEN: 
+        from_secret: BOT_TOKEN
+    image: fadlyas/kernel_dockerfile:latest
+    name: Compile
