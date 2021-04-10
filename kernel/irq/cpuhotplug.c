@@ -106,11 +106,12 @@ void irq_migrate_all_off_this_cpu(void)
 		raw_spin_lock(&desc->lock);
 		affinity_broken = migrate_one_irq(desc);
 		raw_spin_unlock(&desc->lock);
+	}
 
+#ifdef CONFIG_DEBUG_KERNEL
 		if (affinity_broken)
 			pr_warn_ratelimited("IRQ%u no longer affine to CPU%u\n",
 					    irq, smp_processor_id());
-	}
-
+#endif
 	local_irq_restore(flags);
 }
