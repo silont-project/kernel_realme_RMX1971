@@ -56,6 +56,7 @@
 			device_type = "cpu";
 			compatible = "arm,armv8";
 			reg = <0x0 0x0>;
+			clock-frequency = <1708800000>;
 			enable-method = "psci";
 			efficiency = <612>;
 			cache-size = <0x10000>;
@@ -92,6 +93,7 @@
 			device_type = "cpu";
 			compatible = "arm,armv8";
 			reg = <0x0 0x100>;
+			clock-frequency = <1708800000>;
 			enable-method = "psci";
 			efficiency = <612>;
 			cache-size = <0x10000>;
@@ -123,6 +125,7 @@
 			device_type = "cpu";
 			compatible = "arm,armv8";
 			reg = <0x0 0x200>;
+			clock-frequency = <1708800000>;
 			enable-method = "psci";
 			efficiency = <612>;
 			cache-size = <0x10000>;
@@ -154,6 +157,7 @@
 			device_type = "cpu";
 			compatible = "arm,armv8";
 			reg = <0x0 0x300>;
+			clock-frequency = <1708800000>;
 			enable-method = "psci";
 			efficiency = <612>;
 			cache-size = <0x10000>;
@@ -185,6 +189,7 @@
 			device_type = "cpu";
 			compatible = "arm,armv8";
 			reg = <0x0 0x400>;
+			clock-frequency = <1708800000>;
 			enable-method = "psci";
 			efficiency = <612>;
 			cache-size = <0x10000>;
@@ -216,6 +221,7 @@
 			device_type = "cpu";
 			compatible = "arm,armv8";
 			reg = <0x0 0x500>;
+			clock-frequency = <1708800000>;
 			enable-method = "psci";
 			efficiency = <612>;
 			cache-size = <0x10000>;
@@ -247,6 +253,7 @@
 			device_type = "cpu";
 			compatible = "arm,armv8";
 			reg = <0x0 0x600>;
+			clock-frequency = <2208000000>;
 			enable-method = "psci";
 			efficiency = <1024>;
 			cache-size = <0x20000>;
@@ -278,6 +285,7 @@
 			device_type = "cpu";
 			compatible = "arm,armv8";
 			reg = <0x0 0x700>;
+			clock-frequency = <2208000000>;
 			enable-method = "psci";
 			efficiency = <1024>;
 			cache-size = <0x20000>;
