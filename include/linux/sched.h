@@ -2270,6 +2270,9 @@ struct task_struct {
 #endif /* CONFIG_PRODUCT_REALME_SDM710 */
 #if defined(CONFIG_PRODUCT_REALME_SDM710) && defined(CONFIG_PROCESS_RECLAIM)
 	union reclaim_limit reclaim;
+#ifdef CONFIG_ANDROID_SIMPLE_LMK
+	struct task_struct		*simple_lmk_next;
+#endif
 #endif
 /* CPU-specific state of this task */
 	struct thread_struct thread;
