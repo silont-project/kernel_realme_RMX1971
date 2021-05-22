@@ -118,3 +118,12 @@ all.config
 
 # fetched Android config fragments
 kernel/configs/android-*.cfg
+
+#
+# Build environment
+#
+clang/
+gcc/
+gcc32/
+out/
+build
