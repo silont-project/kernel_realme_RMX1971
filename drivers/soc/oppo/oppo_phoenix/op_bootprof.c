@@ -27,7 +27,7 @@
 #include <linux/printk.h>
 #include <linux/platform_device.h>
 #include <linux/slab.h>
-#include <linux/sched/clock.h>
+#include <linux/sched_clock.h>
 #include <linux/uaccess.h>
 #include "oppo_phoenix.h"
 #include "op_bootprof.h"
