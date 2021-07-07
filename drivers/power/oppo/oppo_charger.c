@@ -5317,8 +5317,10 @@ static void oppo_chg_other_thing(struct oppo_chg_chip *chip)
 	if (chip->charger_exist) {
 		chip->total_time += OPPO_CHG_UPDATE_INTERVAL_SEC;
 	}
+#ifdef DEBUG_KERNEL
 	oppo_chg_print_log(chip);
 	oppo_chg_critical_log(chip);
+#endif /* DEBUG_KERNEL */
 }
 
 #define IBATT_COUNT	10
