@@ -12,7 +12,7 @@ config OPPO_CHARGER_MTK
 	  Say Y here to declare charging system is on MTK
 	  
 config OPPO_SHORT_C_BATT_CHECK
-	bool "OPPO batt short "
+	tristate "OPPO batt short "
 	help
 	  Say Y here to declare OPPO batt short	  
 
@@ -22,12 +22,12 @@ config OPPO_STANDARD_BATTERY_CHECK_ADC
 	  Say Y here to support Official Standard Battery check by ADC
 
 config OPPO_SHORT_IC_CHECK
-	bool "OPPO short ic"
+	tristate "OPPO short ic"
 	help
 	  Say Y here to declare OPPO batt short
 
 config OPPO_SHORT_HW_CHECK
-	bool "OPPO batt HW SHORT "
+	tristate "OPPO batt HW SHORT "
 	help
 	  Say Y here to declare charging system is on MTK
 
