@@ -1,0 +1,108 @@
+#!/usr/bin/env bash
+
+SRC=$(pwd)
+OUT=${SRC}/out
+CC=clang
+
+DEVICE=RMX1971
+KERNEL=SiLonT
+VERSION=Shion
+DEFCONFIG=RMX1971_defconfig
+
+export TG_ID="${TG_ID}"
+export TG_TOKEN="${TG_TOKEN}"
+
+function tgMsg {
+	curl -s -X POST https://api.telegram.org/bot${TG_TOKEN}/sendMessage -d chat_id="${TG_ID}" \
+	-d "disable_web_page_preview=true" \
+	-d "disable_notification=true" \
+	-d "parse_mode=html" \
+	-d text="$1"
+}
+
+function tgSticker {
+	curl -s -X POST https://api.telegram.org/bot${TG_TOKEN}/sendSticker -d chat_id="${TG_ID}" \
+	-d "disable_web_page_preview=true" \
+	-d "disable_notification=true" \
+	-d "parse_mode=html" \
+	-d sticker="$1"
+}
+
+function tgFile {
+	curl -s -X POST https://api.telegram.org/bot${TG_TOKEN}/sendDocument -F chat_id="${TG_ID}" \
+	-F "disable_web_page_preview=true" \
+	-F "disable_notification=true" \
+	-F "parse_mode=html" \
+	-F document=@"$1" \
+	-F caption="$2"
+}
+
+function castMsg {
+tgMsg \
+"<b>Compilation initialized</b>
+<b>Host</b>: <code>$(uname)</code>
+<b>Device</b>: <code>${DEVICE}</code>
+<b>Kernel</b>: <code>${KERNEL}</code>
+<b>Version</b>: <code>${VERSION}</code>
+<b>LTS tag</b>: <code>$(make kernelversion)</code>
+<b>Compiler</b>: <code>${CC}</code>
+<b>HEAD</b>: <code>$(git log --oneline -1)</code>"
+}
+
+function success {
+	tgFile "${OUT}/AnyKernel3/${ZIPNAME}" "Compilation finished!"
+	tgSticker "CAACAgIAAxkBAAFh3MdiAcOwVLT_M0PQopc5XMeV7qRYpwACPwIAApPp0xVhfsrxRHKTcCME"
+	exit 0
+}
+
+function fail {
+	tgMsg "Compilation failed on $1!"
+	tgSticker "CAACAgEAAxkBAAFh3MtiAcQGRbTCc0SqX_OWgup-R1FBLwACGQAD1xiAIQ82b0HScxLhIwQ"
+	exit 1
+}
+
+function compile {
+	export PATH="$PATH:${SRC}/clang/bin"
+	castMsg
+	make -j$(nproc) \
+	O=${OUT} \
+	ARCH=arm64 \
+	${DEFCONFIG} || fail "defconfig"
+
+	make -j$(nproc) \
+	ARCH=arm64 \
+	O=${OUT} \
+	CC=${CC} \
+	AR=llvm-ar \
+	NM=llvm-nm \
+	LD=ld.lld \
+	STRIP=llvm-strip \
+	OBJCOPY=llvm-objcopy \
+	OBJDUMP=llvm-objdump \
+	OBJSIZE=llvm-size \
+	READELF=llvm-readelf \
+	HOSTCC=clang \
+	HOSTCXX=clang++ \
+	HOSTAR=llvm-ar \
+	HOSTLD=ld.lld \
+	CROSS_COMPILE=aarch64-linux-gnu- \
+	CROSS_COMPILE_ARM32=arm-linux-gnueabi- || fail "kernel"
+}
+
+function pack {
+	ANYKERNEL=${OUT}/AnyKernel3
+	rm -rf ${ANYKERNEL}
+	git clone https://github.com/nao04/AnyKernel3 ${ANYKERNEL}
+	cp ${OUT}/arch/arm64/boot/Image.gz-dtb ${OUT}/AnyKernel3
+	cp ${OUT}/arch/arm64/boot/dtbo.img ${OUT}/AnyKernel3
+
+	TAG=$(date +"%H%M")
+	export ZIPNAME="${KERNEL}-${VERSION}~${TAG}.zip"
+	cd ${ANYKERNEL}
+	zip -r ${ZIPNAME} .* -x .git README.md
+	cd ${SRC}
+	success
+}
+
+compile
+pack
