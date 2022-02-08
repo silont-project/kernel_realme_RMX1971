@@ -126,4 +126,3 @@ clang/
 gcc/
 gcc32/
 out/
-build
