@@ -1,0 +1,18 @@
+---
+clone:
+  depth: 1
+kind: pipeline
+name: RMX1971
+steps:
+  - name: Compile
+    image: archlinux:base-devel
+    commands:
+      - curl -LO "https://repo.archlinuxcn.org/x86_64/glibc-linux4-2.33-4-x86_64.pkg.tar.zst" && bsdtar -C / -xvf "glibc-linux4-2.33-4-x86_64.pkg.tar.zst"
+      - pacman -Sy && pacman -S git bc inetutils python python2 cpio zip jdk-openjdk aarch64-linux-gnu-gcc arm-none-eabi-gcc --noconfirm
+      - git clone https://github.com/silont-project/silont-clang --depth 1 clang
+      - ./build
+    environment:
+      TG_TOKEN:
+        from_secret: TOKEN
+      TG_ID:
+        from_secret: ID
