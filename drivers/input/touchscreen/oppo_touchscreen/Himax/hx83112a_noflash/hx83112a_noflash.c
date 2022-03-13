@@ -54,17 +54,17 @@ unsigned char *FW_buf;
 
 /*******Part0:LOG TAG Declear********************/
 #define TPD_DEVICE "himax,hx83112a_nf"
-#define TPD_INFO(a, arg...)  pr_err("[TP]"TPD_DEVICE ": " a, ##arg)
+#define TPD_INFO(a, arg...)  pr_debug("[TP]"TPD_DEVICE ": " a, ##arg)
 #define TPD_DEBUG(a, arg...)\
     do{\
         if (LEVEL_DEBUG == tp_debug)\
-            pr_err("[TP]"TPD_DEVICE ": " a, ##arg);\
+            pr_debug("[TP]"TPD_DEVICE ": " a, ##arg);\
     }while(0)
 
 #define TPD_DETAIL(a, arg...)\
     do{\
         if (LEVEL_BASIC != tp_debug)\
-            pr_err("[TP]"TPD_DEVICE ": " a, ##arg);\
+            pr_debug("[TP]"TPD_DEVICE ": " a, ##arg);\
     }while(0)
 
 #define TPD_DEBUG_NTAG(a, arg...)\
@@ -5985,6 +5985,7 @@ static int hx83112b_get_gesture_info(void *chip_data, struct gesture_info * gest
         return -1;
     }
 
+    /*
     for (i = 0; i < 56; i++) {
         if (!i) {
             printk("%s: gesture buf data\n", __func__);
@@ -5997,6 +5998,7 @@ static int hx83112b_get_gesture_info(void *chip_data, struct gesture_info * gest
             printk("\n");
         }
     }
+    */
 
     check_sum_cal = himax_checksum_cal(chip_info, buf, ts_status);//????checksum
     if (check_sum_cal == CHECKSUM_FAIL) {
