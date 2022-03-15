@@ -234,6 +234,9 @@ static int read_symbol(FILE *in, struct sym_entry *s)
 	/* Ignore most absolute/undefined (?) symbols. */
 	if (is_ignored_symbol(sym, stype))
 		return -1;
+	/* exclude s390 kasan local symbols */
+	else if (!strncmp(sym, ".LASANPC", 8))
+		return -1;
 
 	check_symbol_range(sym, s->addr, text_ranges, ARRAY_SIZE(text_ranges));
 	check_symbol_range(sym, s->addr, &percpu_range, 1);
