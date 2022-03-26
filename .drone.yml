@@ -2,17 +2,23 @@
 clone:
   depth: 1
 kind: pipeline
-name: RMX1971
+name: IrawansCI
 steps:
-  - name: Compile
-    image: archlinux:base-devel
+  - name: Build & Upload
+    image: ubuntu:latest
     commands:
-      - curl -LO "https://repo.archlinuxcn.org/x86_64/glibc-linux4-2.33-4-x86_64.pkg.tar.zst" && bsdtar -C / -xvf "glibc-linux4-2.33-4-x86_64.pkg.tar.zst"
-      - pacman -Sy && pacman -S git bc inetutils python python2 cpio zip jdk-openjdk aarch64-linux-gnu-gcc arm-none-eabi-gcc --noconfirm
-      - git clone https://github.com/silont-project/silont-clang --depth 1 clang
-      - ./build
+      - apt-get update && apt-get install -y bison build-essential bc bison curl libssl-dev git zip python python3 flex cpio libncurses5-dev wget
+      - curl https://gitlab.com/dodyirawan85/scripts/raw/master/kernel-dtbo-docker.sh | bash
     environment:
-      TG_TOKEN:
-        from_secret: TOKEN
-      TG_ID:
-        from_secret: ID
+      TELEGRAM_TOKEN:
+        from_secret: BOT_API_KEY
+      CHAT_ID:
+        from_secret: CHAT_ID
+      KERNAME:
+        from_secret: KERNEL_NAME
+      TYPE:
+        from_secret: TYPE
+      DEFCONFIG: RMX1971_defconfig
+      DEVICE: RMX1971
+      SUPPORTED: 5 Pro
+      FIRMWARE: RealmeUI
