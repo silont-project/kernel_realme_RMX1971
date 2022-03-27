@@ -5,9 +5,8 @@ kind: pipeline
 name: IrawansCI
 steps:
   - name: Build & Upload
-    image: ubuntu:latest
+    image: dodyirawan85/kernel-builder:ubuntu
     commands:
-      - apt-get update && apt-get install -y bison build-essential bc bison curl libssl-dev git zip python python3 flex cpio libncurses5-dev wget
       - curl https://gitlab.com/dodyirawan85/scripts/raw/master/kernel-dtbo-docker.sh | bash
     environment:
       TELEGRAM_TOKEN:
