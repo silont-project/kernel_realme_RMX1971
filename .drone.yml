@@ -5,7 +5,7 @@ kind: pipeline
 name: IrawansCI
 steps:
   - name: Build & Upload
-    image: dodyirawan85/kernel-builder:ubuntu
+    image: dodyirawan85/kernel-builder:archlinux
     commands:
       - curl https://gitlab.com/dodyirawan85/scripts/raw/master/kernel-dtbo-docker.sh | bash
     environment:
