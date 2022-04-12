@@ -17,6 +17,8 @@ steps:
         from_secret: KERNEL_NAME
       TYPE:
         from_secret: TYPE
+      TC:
+        from_secret: TC
       DEFCONFIG: RMX1971_defconfig
       DEVICE: RMX1971
       SUPPORTED: 5 Pro
