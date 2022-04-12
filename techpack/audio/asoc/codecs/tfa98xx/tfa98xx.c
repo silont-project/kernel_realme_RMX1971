@@ -762,7 +762,7 @@ static ssize_t tfa98xx_dbgfs_start_set(struct file *file,
     struct tfa98xx *tfa98xx = i2c_get_clientdata(i2c);
     struct tfa98xx_control *calib = &(handles_local[tfa98xx->handle].dev_ops.controls.calib);
     enum Tfa98xx_Error ret;
-    char buf[32];
+    char buf[32] = "";
     const char ref[] = "please calibrate now";
     int buf_size;
 
@@ -976,7 +976,7 @@ static ssize_t tfa98xx_dbgfs_dsp_state_set(struct file *file,
     struct i2c_client *i2c = file->private_data;
     struct tfa98xx *tfa98xx = i2c_get_clientdata(i2c);
     enum tfa_error ret;
-    char buf[32];
+    char buf[32] = "";
     const char start_cmd[] = "start";
     const char stop_cmd[] = "stop";
 	#ifndef CONFIG_PRODUCT_REALME_SDM710
