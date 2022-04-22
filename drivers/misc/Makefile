@@ -69,7 +69,9 @@ obj-$(CONFIG_VXR200_XR_MISC) += vxr7200.o
 
 obj-$(CONFIG_OPPO_MOTOR)	+= motor.o
 obj-$(CONFIG_OPPO_MOTOR)	+= oppo_motor/
+ifeq ($(CONFIG_SCHED_WALT),y)
 obj-y				+= schedx.o
+endif
 
 lkdtm-$(CONFIG_LKDTM)		+= lkdtm_core.o
 lkdtm-$(CONFIG_LKDTM)		+= lkdtm_bugs.o
