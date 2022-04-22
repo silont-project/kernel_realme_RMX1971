@@ -3273,7 +3273,9 @@ static inline void sched_exit(struct task_struct *p) { }
 #endif
 
 #ifdef CONFIG_PRODUCT_REALME_SDM710
+#ifdef CONFIG_SCHED_WALT
 extern int sched_boost(void);
+#endif
 extern int sched_set_updown_migrate(unsigned int *up_pct, unsigned int *down_pct);
 extern void sched_get_updown_migrate(unsigned int *up_pct, unsigned int *down_pct);
 #endif /* CONFIG_PRODUCT_REALME_SDM710 */
