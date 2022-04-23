@@ -316,7 +316,11 @@ static int msm_set_updown_migrate(unsigned int up_migrate,
 static int msm_set_cpunr_limit(struct hypnus_data *pdata, unsigned int index,
 		unsigned int min, unsigned int max)
 {
-	return hypnus_set_min_max_cpus(index, min, max);
+	#ifdef CONFIG_SCHED_CORE_CTL
+		return hypnus_set_min_max_cpus(index, min, max);
+	#else
+		return 0;
+	#endif
 }
 
 static struct hypnus_chipset_operations msm_op = {
