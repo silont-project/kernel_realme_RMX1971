@@ -74,6 +74,7 @@ static const int download_mode;
 #endif
 
 static int in_panic;
+int dload_type = SCM_DLOAD_FULLDUMP;
 
 static int panic_prep_restart(struct notifier_block *this,
 			      unsigned long event, void *ptr)
@@ -93,7 +94,6 @@ static struct notifier_block panic_blk = {
 #define KASLR_OFFSET_PROP "qcom,msm-imem-kaslr_offset"
 #endif
 
-int dload_type = SCM_DLOAD_FULLDUMP;
 static void *dload_mode_addr;
 static bool dload_mode_enabled;
 static void *emergency_dload_mode_addr;
