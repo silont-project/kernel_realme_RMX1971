@@ -20,10 +20,13 @@
 #dts-dirs += xilinx
 #dts-dirs += lg
 #dts-dirs += zte
+ifeq ($(CONFIG_PRODUCT_REALME_RMX1971),y)
+dts-dirs += 19691
+else
 dts-dirs += 18621
 dts-dirs += 19651
-dts-dirs += 19691
 dts-dirs += 18041
+endif
 
 subdir-y	:= $(dts-dirs)
 
